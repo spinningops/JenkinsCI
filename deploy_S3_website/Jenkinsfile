@@ -26,6 +26,8 @@ pipeline {
 
                         // Upload files from working directory '' in your project workspace
                         s3Upload(bucket:"website.spinningops.com", workingDir:'', includePathPattern:'**/*');
+                        // invalidate CloudFront distribution
+                        cfInvalidate(distribution:'E152QNNVYS423', paths:['/*'])
                     }
 
                 };
