@@ -32,7 +32,7 @@ pipeline {
     stage('Push Image') {
       steps{
         script {
-          docker.withRegistry( 'spinningops/jenkins', '978cd482-3ecb-49dc-afeb-f485adf161aa' ) {
+          docker.withRegistry( 'https://registry.hub.docker.com', '978cd482-3ecb-49dc-afeb-f485adf161aa' ) {
             dockerImage.push()
             
           }
