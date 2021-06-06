@@ -22,8 +22,8 @@ pipeline {
       steps {
         script {
 
-          
-          dockerImage = docker.build(registry + ":alpine$BUILD_NUMBER", "-f ${DOCKER_FILES_DIR}/${dockerfile} ${DOCKER_FILES_DIR}")
+
+          dockerImage = docker.build(registry + ":alpine$BUILD_NUMBER", "-f build_jenkins_image/Dockerfile .")
 
         }
       }
