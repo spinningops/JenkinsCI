@@ -19,9 +19,12 @@ pipeline {
 
     stage('Build image') {
       steps{
+        dir("build_jenkins_image/") {
+          sh "pwd"}
+          
         script {
 
-          dockerImage = docker.build(registry + ":alpine$BUILD_NUMBER", " /build_jenkins_image/ -f Dockerfile .")
+          dockerImage = docker.build(registry + ":alpine$BUILD_NUMBER", " -f Dockerfile .")
 
         }
       }
