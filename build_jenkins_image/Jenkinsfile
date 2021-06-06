@@ -11,7 +11,7 @@ pipeline {
 
     stage('Checkout Source') {
       steps {
-        
+
         git branch: "main",
         //   credentialsId: 'cfd6c76a-406c-4a8f-af8c-13d907ef0d4b',
           url: 'git@github.com:spinningops/JenkinsCI.git'
@@ -22,6 +22,7 @@ pipeline {
       steps {
         script {
           sh "pwd"
+          sh "ls"
 
           dockerImage = docker.build(registry + ":alpine$BUILD_NUMBER", " -f Dockerfile .")
 
