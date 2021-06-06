@@ -25,7 +25,7 @@ pipeline {
           sh "ls"
           cd '${env.WORKSPACE}/build-jenkins-image/build-jenkins-image'
 
-          dockerImage = docker.build(registry + ":alpine$BUILD_NUMBER", " -f Dockerfile .")
+          dockerImage = docker.build(registry + ":alpine$BUILD_NUMBER", "-f ${DOCKER_FILES_DIR}/${dockerfile} ${DOCKER_FILES_DIR}")
 
         }
       }
