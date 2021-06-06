@@ -23,7 +23,7 @@ pipeline {
         script {
           sh "pwd"
           sh "ls"
-          dir('build-jenkins-image') {sh 'ls'}
+          dir('${env.WORKSPACE}/build-jenkins-image') {sh 'pwd'}
 
           dockerImage = docker.build(registry + ":alpine$BUILD_NUMBER", " -f Dockerfile .")
 
