@@ -1,0 +1,43 @@
+pipeline {
+
+  environment {
+    registry = "spinningops/jenkins"
+    dockerImage = ""
+  }
+
+  agent any
+
+  stages {
+
+    stage('Checkout Source') {
+      steps {
+        git branch: "main",
+        //   credentialsId: 'cfd6c76a-406c-4a8f-af8c-13d907ef0d4b',
+          url: 'git@github.com:spinningops/JenkinsCI.git'
+      }
+    }
+
+    stage('Build image') {
+      steps{
+        script {
+
+          dockerImage = docker.build(registry + ":alpine$BUILD_NUMBER", "  build_jenkins_image/ -f Dockerfile .")
+
+        }
+      }
+    }
+
+    stage('Push Image') {
+      steps{
+        script {
+          docker.withRegistry( 'spinningops/jenkins', '978cd482-3ecb-49dc-afeb-f485adf161aa' ) {
+            dockerImage.push()
+            
+          }
+        }
+      }
+    }
+
+  }
+
+}
