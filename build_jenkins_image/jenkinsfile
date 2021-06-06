@@ -21,7 +21,7 @@ pipeline {
       steps{
         script {
 
-          dockerImage = docker.build(registry + ":alpine$BUILD_NUMBER", "  build_jenkins_image/ -f Dockerfile .")
+          dockerImage = docker.build(registry + ":alpine$BUILD_NUMBER ", "/build_jenkins_image/ -f Dockerfile .")
 
         }
       }
