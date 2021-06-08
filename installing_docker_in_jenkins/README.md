@@ -1,4 +1,5 @@
 ## Installing Docker in Jenkins
+manual install
 
 add volume to docker and docker-compose   
 `-v /var/run/docker.sock:/var/run/docker.sock`   
