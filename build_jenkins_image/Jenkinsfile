@@ -5,7 +5,7 @@ pipeline {
     dockerImage = ""
   }
 
-  agent { label 'spinningops-jenkins-node' }
+  agent { label 'jenkins-node' }
 
   stages {
 
