@@ -5,7 +5,7 @@ pipeline {
     dockerImage = ""
   }
 
-  agent any
+  agent ec2-jenkins-node
 
   stages {
 
