@@ -14,7 +14,7 @@ USER root
 RUN apk update && apk add docker && apk add openrc && rc-update add docker boot
 
 # change permissions for docker
-RUN chmod 777 /var/run/docker.sock
+# RUN chmod 777 /var/run/docker.sock
 
 # su to jenkins user
 USER jenkins
