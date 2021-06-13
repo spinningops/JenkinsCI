@@ -13,7 +13,7 @@ pipeline {
       steps {
 
         git branch: "main",
-        // create keygen to clone
+        // create keygen in the ami to git clone
           url: 'git@github.com:spinningops/JenkinsCI.git'
       }
     }
@@ -36,7 +36,7 @@ pipeline {
         script {
 
           sh'''#!/bin/bash 
-                        packer validate
+                        create_jenkins_agent/packer validate jenkins-agent-ubuntu-ami.json
                     '''
         }
       }
@@ -47,7 +47,6 @@ pipeline {
         script {
 
           sh'''#!/bin/bash 
-                        packer validate
                         create_jenkins_agent/packer build jenkins-agent-ubuntu-ami.json
                     '''
         }
