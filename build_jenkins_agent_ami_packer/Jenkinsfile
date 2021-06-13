@@ -36,7 +36,7 @@ pipeline {
         script {
 
           sh'''#!/bin/bash 
-                        packer validate jenkins-agent-ubuntu-ami.json
+                        packer validate build-jenkins-agent-ami-packer/jenkins-agent-ubuntu-ami.json
                     '''
         }
       }
@@ -47,7 +47,7 @@ pipeline {
         script {
 
           sh'''#!/bin/bash 
-                        packer build jenkins-agent-ubuntu-ami.json
+                        packer build build-jenkins-agent-ami-packer/jenkins-agent-ubuntu-ami.json
                     '''
         }
       }
