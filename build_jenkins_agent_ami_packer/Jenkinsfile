@@ -1,7 +1,7 @@
 pipeline {
 
   environment {
-    registry = "spinningops/jenkins"
+    registry = ""
     dockerImage = ""
   }
 
@@ -13,6 +13,7 @@ pipeline {
       steps {
 
         git branch: "main",
+        // create keygen to clone
           url: 'git@github.com:spinningops/JenkinsCI.git'
       }
     }
@@ -21,7 +22,7 @@ pipeline {
       steps {
         script {
 
-          bash'''#!/bin/bash 
+          sh'''#!/bin/bash 
                         curl -fsSL https://apt.releases.hashicorp.com/gpg | sudo apt-key add -
                         sudo apt-add-repository "deb [arch=amd64] https://apt.releases.hashicorp.com $(lsb_release -cs) main"
                         sudo apt-get update && sudo apt-get install packer
@@ -34,7 +35,7 @@ pipeline {
       steps {
         script {
 
-          bash'''#!/bin/bash 
+          sh'''#!/bin/bash 
                         packer validate
                     '''
         }
@@ -45,7 +46,7 @@ pipeline {
       steps {
         script {
 
-          bash'''#!/bin/bash 
+          sh'''#!/bin/bash 
                         packer validate
                         create_jenkins_agent/packer build jenkins-agent-ubuntu-ami.json
                     '''
