@@ -7,4 +7,7 @@ fix git clone error:
 2. if you create a new ami then get the **id_rsa.pub** key again and add it to GitHub.   
 
 instance permissions:   
-you will need to add ami/ec2 permissions to the jenkins-agent
+you will need to add ami/ec2 permissionsto the user and role to the jenkins-agent to allow **iam-PassRole**   
+
+security group:   
+ad the group to that same group to allow other hosts to connect

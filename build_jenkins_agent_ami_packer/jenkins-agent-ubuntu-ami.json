@@ -6,11 +6,11 @@
     "builders": [
         {
             "access_key": "{{user `aws_access_key`}}",
-            "ami_name": "Jenkins_Agent_ubuntu_packer_with_SSH_pub",
+            "ami_name": "Jenkins_Agent_ubuntu_packer_with_SSH_pub-test",
             "instance_type": "c5.xlarge",
             "region": "us-east-1",
             "secret_key": "{{user `aws_secret_key`}}",
-            "security_group_id":"sg-08203685e22bb1651",
+            "security_group_id":"sg-08203685e22bb1651, sg-06de0cfe963146be6",
             "associate_public_ip_address":"true",
             "source_ami_filter": {
               "filters": {
