@@ -10,7 +10,7 @@
             "instance_type": "c5.xlarge",
             "region": "us-east-1",
             "secret_key": "{{user `aws_secret_key`}}",
-            "security_group_id":"sg-08203685e22bb1651, sg-06de0cfe963146be6",
+            "security_group_id":"sg-08203685e22bb1651 sg-06de0cfe963146be6",
             "associate_public_ip_address":"true",
             "source_ami_filter": {
               "filters": {
