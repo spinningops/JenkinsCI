@@ -6,7 +6,7 @@
     "builders": [
         {
             "access_key": "{{user `aws_access_key`}}",
-            "ami_name": "Jenkins_Agent_ubuntu_packer_no_SSH",
+            "ami_name": "Jenkins_Agent_ubuntu_packer_no_SSH_test1",
             "instance_type": "c5.xlarge",
             "region": "us-east-1",
             "secret_key": "{{user `aws_secret_key`}}",
@@ -29,6 +29,7 @@
         {
             "type": "shell",
             "inline":[
+                "sudo -u ubuntu bash -c \"ssh-keygen -f ~ubuntu/.ssh/id_rsa -N ''\"",
                 "sudo add-apt-repository ppa:openjdk-r/ppa",
                 "sudo apt-get update -y",
                 "sudo apt-get install -y openjdk-8-jdk",
