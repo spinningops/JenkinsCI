@@ -5,7 +5,7 @@ pipeline {
     dockerImage = ""
   }
 
-  agent { label 'jenkins-agent' }
+  agent { label 'jenkins-agent-ec2-fulladmin' }
 
   stages {
 
