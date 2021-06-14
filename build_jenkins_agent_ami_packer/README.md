@@ -10,4 +10,4 @@ instance permissions:
 you will need to add ami/ec2 permissionsto the user and role to the jenkins-agent to allow **iam-PassRole**   
 
 security group:   
-ad the group to that same group to allow other hosts to connect
+add the IP of the Packer-build to the jenkins-agent group to SSH
