@@ -1,0 +1,63 @@
+pipeline {
+
+  agent any
+  environment{
+        env="stage"
+
+  stages {
+
+    stage('Checkout Source') {
+      steps {
+        git branch: "main",
+          // credentialsId: 'cfd6c76a-406c-4a8f-af8c-13d907ef0d4b',
+          url: 'git@github.com:spinningops/website-pipeline-demo.git'
+      }
+    }
+
+
+    stage('Build image') {
+      steps {
+        script {
+
+
+          dockerImage = docker.build(registry + ":go-websample$BUILD_NUMBER", "-f build_golang_webserver/Dockerfile .")
+
+        }
+      }
+    }
+
+    stage('Push Image') {
+      steps{
+        script {
+          docker.withRegistry( 'https://registry.hub.docker.com', '978cd482-3ecb-49dc-afeb-f485adf161aa' ) {
+            dockerImage.push()
+            
+          }
+        }
+      }
+
+    stage('Deploy cf stack') {
+        steps{
+            script {
+
+                dir(''){
+
+                    pwd(); //Log current directory
+
+                    withAWS(region:'us-east-1',credentials:'18a9ad57-22ad-4d15-9dda-391bccb8fc13') {
+
+                        def identity=awsIdentity();//Log AWS credentials
+
+                    steps{
+
+                        sh 'build_golang_webserver/create_cf_stack.sh'
+                    }
+
+                };
+            }
+        }
+    }
+
+  }
+
+}
