@@ -1,8 +1,7 @@
 pipeline {
 
   agent any
-  environment{
-        env="stage"
+        
 
   stages {
 
@@ -31,7 +30,8 @@ pipeline {
         script {
           docker.withRegistry( 'https://registry.hub.docker.com', '978cd482-3ecb-49dc-afeb-f485adf161aa' ) {
             dockerImage.push()
-            
+                
+            }
           }
         }
       }
@@ -56,6 +56,7 @@ pipeline {
                 };
             }
         }
+      }
     }
 
   }
