@@ -14,7 +14,7 @@ pipeline {
       steps {
         git branch: "main",
           credentialsId: '064af216-d6d6-4932-9e81-6ee83aaf7eb8',
-          url: 'git@github.com:spinningops/JenkinsCI.git'
+          url: 'git@github.com:spinningops/spinningops-blog.git'
       }
     }
 
@@ -24,7 +24,7 @@ pipeline {
         script {
 
 
-          dockerImage = docker.build(registry + ":go-websample$BUILD_NUMBER", "-f build_golang_webserver/Dockerfile .")
+          dockerImage = docker.build(registry + ":go-websample$BUILD_NUMBER", "-f Golang/go_create_website_stack/Dockerfile .")
 
         }
       }
@@ -55,7 +55,7 @@ pipeline {
 
                     steps{
 
-                        sh 'build_golang_webserver/create_cf_stack.sh'
+                        sh 'Golang/go_create_website_stack/create_cf_stack.sh'
                     }
 
                 };
