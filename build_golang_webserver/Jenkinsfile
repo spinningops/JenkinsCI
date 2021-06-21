@@ -9,7 +9,7 @@ pipeline {
       steps {
         git branch: "main",
           // credentialsId: 'cfd6c76a-406c-4a8f-af8c-13d907ef0d4b',
-          url: 'git@github.com:spinningops/website-pipeline-demo.git'
+          url: 'git@github.com:spinningops/JenkinsCI.git'
       }
     }
 
