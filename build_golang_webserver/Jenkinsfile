@@ -24,7 +24,7 @@ pipeline {
         script {
 
 
-          dockerImage = docker.build(registry + ":go-websample$BUILD_NUMBER", "-f Golang/go_create_website_stack/Dockerfile .")
+          dockerImage = docker.build(registry + ":go-websample$BUILD_NUMBER", "-f build_golang_webserver/Golang/Dockerfile .")
 
         }
       }
@@ -55,7 +55,7 @@ pipeline {
 
                     steps{
 
-                        sh 'Golang/go_create_website_stack/create_cf_stack.sh'
+                        sh 'build_golang_webserver/Golang/go_create_website_stack/create_cf_stack.sh'
                     }
 
                 };
@@ -65,5 +65,5 @@ pipeline {
     }
 
   }
-  
+
 }
