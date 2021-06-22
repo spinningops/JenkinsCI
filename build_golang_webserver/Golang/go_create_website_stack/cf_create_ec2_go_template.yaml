@@ -36,7 +36,7 @@ Resources:
               "apt-cache policy docker-ce\n",
               "sudo apt install -y docker-ce\n",
               "sudo systemctl enable docker\n",
-              "sudo docker run -it -d -p 80:8000 spinningops/go-websample:go-websample36\n"
+              "sudo docker run -it -d -p 80:8000 spinningops/go-websample:go-websample1\n"
             ]]}}
 
       Tags:
