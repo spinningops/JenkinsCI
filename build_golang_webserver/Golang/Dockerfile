@@ -1,5 +1,5 @@
 FROM golang
 
-COPY golang_website .
+ADD golang_website .
 
 CMD ["go", "run", "server.go"]
