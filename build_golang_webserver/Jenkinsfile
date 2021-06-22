@@ -54,10 +54,10 @@ pipeline {
 
                         def identity=awsIdentity();//Log AWS credentials
 
-                    steps{
+
 
                         sh 'build_golang_webserver/Golang/go_create_website_stack/create_cf_stack.sh'
-                    }
+                        
 
                 };
             }
