@@ -1,0 +1,37 @@
+pipeline {
+
+  environment {
+    registry = "spinningops/go-webserver"
+    dockerImage = ""
+  }
+
+  agent any
+
+  stages {
+
+    stage('Checkout Source') {
+      steps {
+        git branch: "main",
+        url: 'git@github.com:spinningops/JenkinsCI.git'
+      }
+    }
+
+    stage('Build image') {
+      steps {
+        script {
+          dockerImage = docker.build(registry + ":go-webserver$BUILD_NUMBER", "-f build_image_w_git_parameters/Dockerfile .")
+        }
+      }
+    }
+
+    stage('Push Image') {
+      steps{
+        script {
+          docker.withRegistry( 'https://registry.hub.docker.com', '978cd482-3ecb-49dc-afeb-f485adf161aa' ) {
+            dockerImage.push()  
+            }
+          }
+        }
+      }
+  }
+}
