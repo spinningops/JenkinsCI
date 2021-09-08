@@ -19,7 +19,7 @@ pipeline {
     stage('Build image') {
       steps {
         script {
-          dockerImage = docker.build(registry + ":$BUILD_NUMBER", "-f build_image_w_git_parameter/Dockerfile .")
+          dockerImage = docker.build(registry + ":$BUILD_NUMBER", "-f build_image_w_git_parameter/app/Dockerfile .")
         }
       }
     }
