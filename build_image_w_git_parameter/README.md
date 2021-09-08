@@ -3,7 +3,7 @@ This is a simple docker image build with specific git parameter (tag)
 The image is golang web server
 
 ### Commit and push the code as tag
-`git commit -m "simple go webserver"`
+`git tag v1.0.0`
 
 ### Start the app
 build from Dockerfile   
