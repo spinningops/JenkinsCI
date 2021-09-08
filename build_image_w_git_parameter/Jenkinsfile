@@ -1,7 +1,7 @@
 pipeline {
 
   environment {
-    registry = "spinningops/go-webserver"
+    registry = "spinningops/go-image-webserver"
     dockerImage = ""
   }
 
@@ -19,7 +19,7 @@ pipeline {
     stage('Build image') {
       steps {
         script {
-          dockerImage = docker.build(registry + ":go-webserver$BUILD_NUMBER", "-f build_image_w_git_parameters/Dockerfile .")
+          dockerImage = docker.build(registry + ":$BUILD_NUMBER", "-f build_image_w_git_parameters/Dockerfile .")
         }
       }
     }
