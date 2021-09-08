@@ -4,6 +4,7 @@ The image is golang web server
 
 ### Commit and push the code as tag
 `git tag v1.0.0`
+`git push origin v1.0.0`
 
 ### Start the app
 build from Dockerfile   
