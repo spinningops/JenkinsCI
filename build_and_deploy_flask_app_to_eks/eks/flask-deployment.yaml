@@ -1,0 +1,33 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: flaskwebsite
+  labels:
+    app: flaskwebsite
+spec:
+  ports:
+    - port: 80
+  selector:
+    app: flaskwebsite
+    tier: frontend
+  type: ClusterIP
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: flaskwebsite
+  labels:
+    application: flaskwebsite
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        application: flaskwebsite
+    spec:
+      containers:
+      - name: flaskwebsite
+        image: 692228415686.dkr.ecr.us-east-1.amazonaws.com/flaskwebsite:latest
+        ports:
+        - containerPort: 5000
+          name: http

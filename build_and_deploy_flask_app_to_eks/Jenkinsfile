@@ -1,0 +1,85 @@
+pipeline {
+
+  environment {
+    registry = "https://692228415686.dkr.ecr.us-east-1.amazonaws.com/flaskwebsite"
+  }
+
+  agent any
+
+  stages {
+
+    stage('Checkout Source') {
+      steps {
+        git branch: "main",
+        url: 'git@github.com:spinningops/JenkinsCI.git'
+      }
+    }
+
+    stage('Build image') {
+      steps {
+        script {
+          dockerImage = docker.build(registry + ":$BUILD_NUMBER", "-f build_and_deploy_flask_app_to_eks/Dockerfile .")
+        }
+      }
+    }
+
+    stage('Push image') {
+      steps{
+        script {
+          docker.withRegistry( 'https://692228415686.dkr.ecr.us-east-1.amazonaws.com', 'bot-jenkins-vid-spinningops' ) {
+            dockerImage.push("${env.BUILD_NUMBER}")
+            dockerImage.push("latest")
+          }
+        }
+      }
+    }
+
+    stage('Install aws-iam-authenticator and kubectl') {
+        steps {
+            script {
+                sh "sudo apt install curl -y"
+                sh "curl -Lo aws-iam-authenticator https://github.com/kubernetes-sigs/aws-iam-authenticator/releases/download/v0.5.9/aws-iam-authenticator_0.5.9_linux_amd64"
+                sh "chmod +x ./aws-iam-authenticator"
+                sh "sudo sudo mv ./aws-iam-authenticator /usr/local/bin"
+                sh "curl -o kubectl curl -O https://s3.us-west-2.amazonaws.com/amazon-eks/1.25.7/2023-03-17/bin/linux/amd64/kubectl"
+                sh "chmod +x ./kubectl"
+                sh "sudo mv ./kubectl /usr/local/bin"
+                sh 'export KUBECONFIG="${KUBECONFIG}:${HOME}/.kube/config"'
+            }
+        }
+    }
+
+    stage('Download kubeconfig') {
+      steps {
+        script {
+          withCredentials([[
+          $class: 'AmazonWebServicesCredentialsBinding',
+          credentialsId: "bot-jenkins-vid-spinningops",
+          accessKeyVariable: 'AWS_ACCESS_KEY_ID',
+          secretKeyVariable: 'AWS_SECRET_ACCESS_KEY'
+          ]])
+          {
+            sh "aws s3 cp s3://vid-kubeconfig/flaskwebsite/config ~/.kube/"
+          }
+        }
+      }
+    }
+
+    stage('Deploy to EKS') {
+      steps{
+        script {
+          withCredentials([[
+          $class: 'AmazonWebServicesCredentialsBinding',
+          credentialsId: "bot-jenkins-vid-spinningops",
+          accessKeyVariable: 'AWS_ACCESS_KEY_ID',
+          secretKeyVariable: 'AWS_SECRET_ACCESS_KEY'
+          ]]) 
+          {
+            sh "echo applying new k8s manifest file"
+            sh "kubectl apply -f build_and_deploy_flask_app_to_eks/eks/."
+          }
+        }
+      }
+    }
+  }
+}
