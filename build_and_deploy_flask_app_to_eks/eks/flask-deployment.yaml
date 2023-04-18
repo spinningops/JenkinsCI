@@ -17,13 +17,16 @@ kind: Deployment
 metadata:
   name: flaskwebsite
   labels:
-    application: flaskwebsite
+    app: flaskwebsite
 spec:
   replicas: 1
+  selector:
+    matchLabels:
+      app: flaskwebsite
   template:
     metadata:
       labels:
-        application: flaskwebsite
+        app: flaskwebsite
     spec:
       containers:
       - name: flaskwebsite
