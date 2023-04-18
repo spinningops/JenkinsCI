@@ -18,7 +18,7 @@ pipeline {
     stage('Build image') {
       steps {
         script {
-          dockerImage = docker.build(registry + ":$BUILD_NUMBER", "-f build-and-deploy-flask-website-to-eks/Dockerfile .")
+          dockerImage = docker.build(registry + ":$BUILD_NUMBER", "-f build_and_deploy_flask_app_to_eks/Dockerfile .")
         }
       }
     }
