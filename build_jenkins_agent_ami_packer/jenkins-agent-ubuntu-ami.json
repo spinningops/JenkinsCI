@@ -13,13 +13,13 @@
             "security_group_ids":"sg-08203685e22bb1651,sg-06de0cfe963146be6",
             "associate_public_ip_address":"true",
             "source_ami_filter": {
-              "filters": {
-              "virtualization-type": "hvm",
-              "name": "ubuntu/images/hvm-ssd/ubuntu-focal-20.04-amd64-server-*",
-              "root-device-type": "ebs"
-              },
-              "owners": ["099720109477"],
-              "most_recent": true
+                "filters": {
+                "virtualization-type": "hvm",
+                "name": "ubuntu/images/hvm-ssd/ubuntu-focal-20.04-amd64-server-*",
+                "root-device-type": "ebs"
+                },
+                "owners": ["099720109477"],
+                "most_recent": true
             },
             "ssh_username": "ubuntu",
             "type": "amazon-ebs"
@@ -30,6 +30,7 @@
             "type": "shell",
             "inline":[
                 "sudo -u ubuntu bash -c \"ssh-keygen -f ~ubuntu/.ssh/id_rsa -N ''\"",
+                "ssh-keyscan -t rsa github.com >> ~/.ssh/known_hosts",
                 "sudo add-apt-repository ppa:openjdk-r/ppa",
                 "sudo apt-get update -y",
                 "sudo apt-get install -y openjdk-8-jdk",
