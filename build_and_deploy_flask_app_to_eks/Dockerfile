@@ -1,7 +1,7 @@
 FROM python:latest
 
 WORKDIR /app
-COPY flaskwebsite/ /app
+ADD build_and_deploy_flask_app_to_eks/flaskwebsite .
 RUN apt update -y
 RUN apt install -y python3-pip python-dev build-essential apt-utils
 RUN pip install --upgrade pip
