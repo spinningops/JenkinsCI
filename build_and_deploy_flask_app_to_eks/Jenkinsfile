@@ -26,7 +26,7 @@ pipeline {
     stage('Push image') {
       steps{
         script {
-          docker.withRegistry( 'https://692228415686.dkr.ecr.us-east-1.amazonaws.com', 'bot-jenkins-vid-spinningops' ) {
+          docker.withRegistry( 'https://692228415686.dkr.ecr.us-east-1.amazonaws.com/flaskwebsite', 'bot-jenkins-vid-spinningops' ) {
             dockerImage.push("${env.BUILD_NUMBER}")
             dockerImage.push("latest")
           }
