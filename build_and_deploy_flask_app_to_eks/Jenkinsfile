@@ -37,7 +37,7 @@ pipeline {
     stage('Install aws-iam-authenticator and kubectl') {
       steps {
         script {
-          sh "sudo apt install curl -y"
+          sh "sudo apt install curl awscli -y"
           sh "curl -Lo aws-iam-authenticator https://github.com/kubernetes-sigs/aws-iam-authenticator/releases/download/v0.5.9/aws-iam-authenticator_0.5.9_linux_amd64"
           sh "chmod +x ./aws-iam-authenticator"
           sh "sudo sudo mv ./aws-iam-authenticator /usr/local/bin"
